@@ -20,6 +20,10 @@ class Filed:
       Ship(6, "v", 0, 0)
     ]
 
+  # Metodo che resituisce quante navi si possono posizionare
+  def getNumerShips(self):
+    return len(self.ships)
+
   # Metodo che permette di posizionare una nave 
   # del dataset all'interno del campo di battaglia
   def shipPositioning(self, indexShip, orientation, startLocationX, startLocationY):
