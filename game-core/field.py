@@ -99,15 +99,16 @@ class Filed:
     result = FireResult.MISS
     hitted = False
     for ship in self.ships:
-      hitted = (ship.getOrientation() == "v" and ship.getStartLocationX() == x and  y >= ship.getStartLocationY() and y <= ship.getStartLocationY() + ship.getSize()) or (ship.getOrientation() != "v" and ship.getStartLocationY() == y and  x >= ship.getStartLocationX() and x <= ship.getStartLocationX() + ship.getSize())
+      hitted = (ship.getOrientation() != "v" and ship.getStartLocationX() == x and  y >= ship.getStartLocationY() and y <= ship.getStartLocationY() + ship.getSize()) or (ship.getOrientation() == "v" and ship.getStartLocationY() == y and  x >= ship.getStartLocationX() and x <= ship.getStartLocationX() + ship.getSize())
       if hitted == True:
-        hittedCell
+        hittedCell = None
         if (ship.getOrientation() == "v"):
-          hittedCell = y - ship.getStartLocationY()
-        else:
           hittedCell = x - ship.getStartLocationX()
+        else:
+          hittedCell = y - ship.getStartLocationY()
         
-        if ship.isHittable(hittedCell):
+        if ship.isHittable(hittedCell) == True:
+          ship.hit(hittedCell)
           if ship.isDestroyed():
             result = FireResult.HITTED_AND_SUNK
           else:
@@ -127,3 +128,14 @@ class Filed:
         isLost = False
         break
     return isLost
+
+
+# # QUICK TEST
+# field = Filed(9,9)
+# field.shipPositioning(0, "v", 0, 0)
+# print(field.ships[0].getSize())
+# print(field.ships[0].getOrientation())
+# print(field.fire(0,0))
+# print(field.fire(1,0))
+# print(field.ships[0].hittedCells)
+# print(field.isLostGame())

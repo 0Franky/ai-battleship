@@ -70,3 +70,9 @@ class Ship:
         break
     if _isDestroyed == True:
       self.setDestroyed()
+
+
+# # QUICK TEST
+# s = Ship(2, "v", 0, 0)
+# s.hit(0)
+# s.hit(1)
