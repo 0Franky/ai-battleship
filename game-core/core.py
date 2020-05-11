@@ -25,8 +25,8 @@ currentTurn = 1
 # Verranno chiamate dopo un attacco e verranno
 # passati valori per capirne il risultato:
 # # Nave colpita, affondata, vittoria, ecc
-callbackPlayer1
-callbackPlayer2
+callbackPlayer1 = None
+callbackPlayer2 = None
 
 FieldPl1 = Field(rowLenght, columnLenght)
 StatusPl1 = GameStatus.POSITIONING_SHIPS
