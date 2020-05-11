@@ -46,8 +46,8 @@ class Ship:
   def isPlaced(self):
     return self._isPlaced
 
-  def place(self):
-    self._isPlaced = True
+  def place(self, status):
+    self._isPlaced = status
 
   def setDestroyed(self):
     self._isDestroyed = True
