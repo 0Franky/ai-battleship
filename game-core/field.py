@@ -31,9 +31,11 @@ class Filed:
     # posizionamento della nave tramite le coordinate x-y
     self.ships[indexShip].setPosition(startLocationX, startLocationY)
     # verifico che la posizione sia corretta
+    # simulo che la nave sia piazzata nella posizione
+    # se corretta la lascio, altrimenti ritorno errore
+    self.ships[indexShip].place(True)
     if self.validatePosition(indexShip) == False:
-      self.ships[indexShip].place()
-    else:
+      self.ships[indexShip].place(False)
       # return error
       print("error") # temporaneamente solo scritta errore
     
@@ -53,24 +55,29 @@ class Filed:
   
   # Metodo che verifica che non ci siano 
   # collisioni tra le navi (navi sovrapposte)
-  def detectCollision(self, indexShip1, indexShip2, recalculateInvers = True):
+  def detectCollision(self, indexShip1, indexShip2):
     valid = True
     startShip1 = self.ships[indexShip1].getStartLocationX()
     startShip2 = self.ships[indexShip2].getStartLocationX()
-    if self.ships[indexShip1].getOrientation() == self.ships[indexShip2].getOrientation():
-      if self.ships[indexShip1].getOrientation() != "v":
-        startShip1 = self.ships[indexShip1].getStartLocationY()
-        startShip2 = self.ships[indexShip2].getStartLocationY()
-      valid = startShip2 < startShip1 or startShip2 > startShip1 + self.ships[indexShip1].getSize()
-    else:
-      if startShip2 >= startShip1 and startShip2 <= startShip1 + self.ships[indexShip1].getSize():
+    if self.ships[indexShip1].isPlaced() == True and self.ships[indexShip2].isPlaced() == True:
+      if self.ships[indexShip1].getOrientation() == self.ships[indexShip2].getOrientation():
+        if self.ships[indexShip1].getOrientation() != "v":
+          startShip1 = self.ships[indexShip1].getStartLocationY()
+          startShip2 = self.ships[indexShip2].getStartLocationY()
+        totMaxLenght = min(startShip1, startShip2) + self.ships[indexShip1].getSize() + self.ships[indexShip2].getSize()
+        actualLenght = max(startShip1 + self.ships[indexShip1].getSize(), startShip2 + self.ships[indexShip2].getSize()) - min(startShip1, startShip2)
+        valid = actualLenght >= totMaxLenght
+      else:
+        verticalShip = None
+        horizzontalShip = None
         if self.ships[indexShip1].getOrientation() == "v":
-          valid = self.ships[indexShip2].getStartLocationX() >= self.ships[indexShip1].getStartLocationX() and self.ships[indexShip2].getStartLocationX() <= self.ships[indexShip1].getStartLocationX() + self.ships[indexShip1].getSize()
+          verticalShip = self.ships[indexShip1]
+          horizzontalShip = self.ships[indexShip2]
         else:
-          valid = self.ships[indexShip1].getStartLocationX() >= self.ships[indexShip2].getStartLocationX() and self.ships[indexShip1].getStartLocationX() <= self.ships[indexShip2].getStartLocationX() + self.ships[indexShip2].getSize()
-
-    if (valid == True):
-      valid = (indexShip1, indexShip2, False)
+          verticalShip = self.ships[indexShip2]
+          horizzontalShip = self.ships[indexShip1]
+        valid = not ((verticalShip.getStartLocationX() >= horizzontalShip.getStartLocationX() and verticalShip.getStartLocationX() < horizzontalShip.getStartLocationX() + horizzontalShip.getSize()) and (horizzontalShip.getStartLocationY() >= verticalShip.getStartLocationY() and horizzontalShip.getStartLocationY() < verticalShip.getStartLocationY() + verticalShip.getSize()))
+        #code different orientation
     return valid
     
   # Metodo che verifica che la nave 
@@ -133,6 +140,9 @@ class Filed:
 # # QUICK TEST
 # field = Filed(9,9)
 # field.shipPositioning(0, "v", 0, 0)
+# field.shipPositioning(1, "o", 0, 0)
+# field.shipPositioning(1, "o", 1, 0)
+# field.shipPositioning(1, "v", 2, 0)
 # print(field.ships[0].getSize())
 # print(field.ships[0].getOrientation())
 # print(field.fire(0,0))
