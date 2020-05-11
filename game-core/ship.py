@@ -13,9 +13,9 @@ class Ship:
     # creo un array lungo quanto la lunghezza della nave
     # indica quali celle della nave sono state colpite
     # per questo inizialmente tutte a false
-    self.hittedCells = np.empty(size)
+    self.hitCells = np.empty(size)
     # setto tutte le celle a false
-    self.hittedCells.fill(False)
+    self.hitCells.fill(False)
     self.startLocationX = startLocationX
     self.startLocationY = startLocationY
     self.orientation = orientation
@@ -56,15 +56,15 @@ class Ship:
     return self._isDestroyed
 
   def isHittable(self, indexCell):
-    return not self.hittedCells[indexCell]
+    return not self.hitCells[indexCell]
 
   def hit(self, indexCell):
-    self.hittedCells[indexCell] = True
+    self.hitCells[indexCell] = True
 
     # Verifico se la nave sia distrutta
     # se così è, la setto come distrutta
     _isDestroyed = True
-    for cell in self.hittedCells:
+    for cell in self.hitCells:
       if cell == False:
         _isDestroyed = False
         break

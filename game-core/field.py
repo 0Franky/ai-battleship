@@ -96,7 +96,7 @@ class Field:
 
   def fire(self, x, y):
     if x >= 0 and x < self.columnLenght and y >= 0 and y < self.rowLenght:
-      return self.isHitted(x, y)
+      return self.isHit(x, y)
     else: 
       return FireResult.BAD_REQUEST_404
 
@@ -106,20 +106,20 @@ class Field:
   # è una richiesta non valida 
   # (ad esempio si cerca di colpire 
   # un punto già colpito)
-  def isHitted(self, x, y):
+  def isHit(self, x, y):
     result = FireResult.MISS
-    hitted = False
+    hit = False
     for ship in self.ships:
-      hitted = (ship.getOrientation() != "v" and ship.getStartLocationX() == x and  y >= ship.getStartLocationY() and y <= ship.getStartLocationY() + ship.getSize()) or (ship.getOrientation() == "v" and ship.getStartLocationY() == y and  x >= ship.getStartLocationX() and x <= ship.getStartLocationX() + ship.getSize())
-      if hitted == True:
-        hittedCell = None
+      hit = (ship.getOrientation() != "v" and ship.getStartLocationX() == x and  y >= ship.getStartLocationY() and y <= ship.getStartLocationY() + ship.getSize()) or (ship.getOrientation() == "v" and ship.getStartLocationY() == y and  x >= ship.getStartLocationX() and x <= ship.getStartLocationX() + ship.getSize())
+      if hit == True:
+        hitCell = None
         if (ship.getOrientation() == "v"):
-          hittedCell = x - ship.getStartLocationX()
+          hitCell = x - ship.getStartLocationX()
         else:
-          hittedCell = y - ship.getStartLocationY()
+          hitCell = y - ship.getStartLocationY()
         
-        if ship.isHittable(hittedCell) == True:
-          ship.hit(hittedCell)
+        if ship.isHittable(hitCell) == True:
+          ship.hit(hitCell)
           if ship.isDestroyed():
             result = FireResult.HITTED_AND_SUNK
           else:
@@ -142,7 +142,7 @@ class Field:
 
 
 # # QUICK TEST
-# field = Filed(9,9)
+# field = Field(9,9)
 # field.shipPositioning(0, "v", 0, 0)
 # field.shipPositioning(1, "o", 0, 0)
 # field.shipPositioning(1, "o", 1, 0)
@@ -151,5 +151,5 @@ class Field:
 # print(field.ships[0].getOrientation())
 # print(field.fire(0,0))
 # print(field.fire(1,0))
-# print(field.ships[0].hittedCells)
+# print(field.ships[0].hitCells)
 # print(field.isLostGame())

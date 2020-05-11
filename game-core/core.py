@@ -1,4 +1,5 @@
-
+from game_status import GameStatus
+from field import Field
 
 # Numero di righe nella griglia
 rowLenght = 9
@@ -27,6 +28,12 @@ currentTurn = 1
 callbackPlayer1
 callbackPlayer2
 
+FieldPl1 = Field(rowLenght, columnLenght)
+StatusPl1 = GameStatus.POSITIONING_SHIPS
+
+FieldPl2 = Field(rowLenght, columnLenght)
+StatusPl2 = GameStatus.POSITIONING_SHIPS
+
 def setPlayer1Callback(_callback):
   global callbackPlayer1
   callbackPlayer1 = _callback
@@ -41,5 +48,4 @@ def setPlayer2Callback(_callback):
 def setNextTurn():
   global currentTurn
   currentTurn = (currentTurn % 2) + 1
-
 
