@@ -40,5 +40,6 @@ def setPlayer2Callback(_callback):
 # Player1-Player2
 def setNextTurn():
   global currentTurn
-  currentTurn = ((currentTurn + 1) % 2) + 1
+  currentTurn = (currentTurn % 2) + 1
+
 
