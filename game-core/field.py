@@ -1,7 +1,7 @@
 from ship import Ship
 from fire_result import FireResult
 
-class Filed:
+class Field:
 
   # Init della classe (costruttore)
   # Params:
