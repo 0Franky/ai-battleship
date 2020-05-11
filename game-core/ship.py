@@ -2,14 +2,26 @@ import numpy as np
 
 class Ship:
   
+  # Init della classe (costruttore)
+  # Params:
+  # # size: lunghezza della nave
+  # # orientation
+  # # startLocationX
+  # # startLocationY
   def __init__(self, size, orientation, startLocationX, startLocationY):
     self.size = size
+    # creo un array lungo quanto la lunghezza della nave
+    # indica quali celle della nave sono state colpite
+    # per questo inizialmente tutte a false
     self.hittedCells = np.empty(size)
+    # setto tutte le celle a false
     self.hittedCells.fill(False)
     self.startLocationX = startLocationX
     self.startLocationY = startLocationY
     self.orientation = orientation
+    # setto che la nave non è distrutta
     self._isDestroyed = False
+    # setto che la nave non è ancora posizionata
     self._isPlaced = False
 
   def getSize(self):
@@ -50,6 +62,7 @@ class Ship:
     self.hittedCells[indexCell] = True
 
     # Verifico se la nave sia distrutta
+    # se così è, la setto come distrutta
     _isDestroyed = True
     for cell in self.hittedCells:
       if cell == False:

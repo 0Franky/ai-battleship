@@ -20,6 +20,10 @@ columnLenght = 9
 # rispettivamente al turno del player corrente
 currentTurn = 1
 
+# Callback degli utenti:
+# Verranno chiamate dopo un attacco e verranno
+# passati valori per capirne il risultato:
+# # Nave colpita, affondata, vittoria, ecc
 callbackPlayer1
 callbackPlayer2
 
@@ -31,6 +35,9 @@ def setPlayer2Callback(_callback):
   global callbackPlayer2
   callbackPlayer2 = _callback
 
+# Setta il turno successivo
+# Valori 1-2 rispettivamente:
+# Player1-Player2
 def setNextTurn():
   global currentTurn
   currentTurn = ((currentTurn + 1) % 2) + 1
