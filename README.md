@@ -1,1 +1,2 @@
-# ai-battleship
+# ai-Snake
+
