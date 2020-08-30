@@ -20,6 +20,8 @@ The snake:
 """
 
 from neural_network import *
+from get_direction_from_path import *
+from iterative_deeping import *
 
 
 class Snake:
@@ -97,7 +99,7 @@ class Snake:
         self.direction[0] = self.direction[1]
         self.direction[1] = -temp
 
-    def AI(self):
+    def AI(self, forward_decision):
         """
         Makes decision for the snake direction according to its current vision
         Vision is given to the NeuralNetwork and most activated output neuron is considered as decision
