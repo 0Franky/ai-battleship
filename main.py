@@ -13,7 +13,6 @@ Here I provide some examples for you to run easily,
 you just need ton uncomment the part you want and comment what you don't want,
 each part is independent of others
 """
-
 from game import*
 from genetic_algorithm import *
 
@@ -35,8 +34,14 @@ game = Game()
 # game.start(display=True, neural_net=net)
 
 # # Larry is very very safe but also my best network, don't hesitate to run him a few times if he's doing loops
-# net.load(filename_weights='saved/larry_weights.npy', filename_biases='saved/larry_biases.npy')
-# game.start(display=True, neural_net=net)
+
+# while(True):
+#     net.load(filename_weights='saved/larry_weights.npy', filename_biases='saved/larry_biases.npy')
+#     game.start(display=True, neural_net=net)
+#     for event in pygame.event.get():
+#         if event.type == KEYDOWN:
+#             if event.key == K_p:
+#                 break
 
 """
 Play a game of snake !
@@ -44,10 +49,10 @@ Play a game of snake !
 I do not recommend it as it is in first person and not that fun
 But if you want, you can
 """
+
 game = Game()
 game.start(playable=True, display=True, speed=10)
-
-
+  
 """
 Train your own snakes !
 

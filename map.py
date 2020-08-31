@@ -19,8 +19,10 @@ Notes:
       since the GA is greedy
 """
 
+import traceback
 import math
 import random
+import numpy as np
 from snake import *
 
 
@@ -39,12 +41,12 @@ class Map:
         """
         snake_head_x, snake_head_y = self.snake.head
         snake_pos = self.structure[snake_head_y][snake_head_x]
-        print("snake_head_x POST")
-        print(snake_head_x)
+        # print("snake_head_x POST")
+        # print(snake_head_x)
         if [snake_head_x, snake_head_y] == self.food:                   # if snake's head is on food
             self.snake.grow()                                           # snake grows and new food is created
-            self.add_food(random.randint(1, SPRITE_NUMBER - 2),
-                          random.randint(1, SPRITE_NUMBER - 2))
+            self.add_food(random.randint(0, SPRITE_NUMBER - 1),
+                          random.randint(0, SPRITE_NUMBER - 1))
         elif snake_pos == WALL:                                         # if snake's head is on wall, snek is ded
             self.snake.alive = False
 
@@ -53,6 +55,19 @@ class Map:
         Adds food on (block_x, block_y) position
         """
         self.food = [block_x, block_y]
+        try:
+            if self.structure[block_x][block_y] == 0:                   # checks if food will spawn in a free space (no wall, wall bad)
+                for i in self.snake.body:                               # checks if food will spawn where the snake is
+                    if i == [block_x, block_y]:
+                        print('Food spawned in snek, respawning...')
+                        self.add_food(random.randint(0, SPRITE_NUMBER - 1), random.randint(0, SPRITE_NUMBER - 1))
+            else:
+                print('Food spawned in wall, respawning...')
+                self.add_food(random.randint(0, SPRITE_NUMBER - 1), random.randint(0, SPRITE_NUMBER - 1))
+            
+        except Exception: 
+            traceback.print_exc()
+            pygame.quit()
 
     def render(self, window):
         """
