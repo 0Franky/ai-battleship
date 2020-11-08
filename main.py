@@ -33,15 +33,14 @@ game = Game()
 # net.load(filename_weights='saved/valentin_weights.npy', filename_biases='saved/valentin_biases.npy')
 # game.start(display=True, neural_net=net)
 
-# # Larry is very very safe but also my best network, don't hesitate to run him a few times if he's doing loops
-
-# while(True):
-#     net.load(filename_weights='saved/larry_weights.npy', filename_biases='saved/larry_biases.npy')
-#     game.start(display=True, neural_net=net)
-#     for event in pygame.event.get():
-#         if event.type == KEYDOWN:
-#             if event.key == K_p:
-#                 break
+# Larry is very very safe but also my best network, don't hesitate to run him a few times if he's doing loops
+while(True):
+    net.load(filename_weights='saved/larry_weights.npy', filename_biases='saved/larry_biases.npy')
+    game.start(display=True, neural_net=net)
+    for event in pygame.event.get():
+        if event.type == KEYDOWN:
+            if event.key == K_p:
+                print("P premuta")
 
 """
 Play a game of snake !
@@ -50,8 +49,8 @@ I do not recommend it as it is in first person and not that fun
 But if you want, you can
 """
 
-game = Game()
-game.start(playable=True, display=True, speed=10)
+# game = Game()
+# game.start(playable=True, display=True, speed=10)
   
 """
 Train your own snakes !
